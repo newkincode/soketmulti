@@ -15,7 +15,7 @@ print(f"ip = {setting['ip']}\nport = {setting['port']}\nip가 0.0.0.0으로 나�
 logger.info("서버 소켓 생성중...")
 serverSock = socket(AF_INET, SOCK_STREAM)
 serverSock.bind((setting['ip'], setting['port']))
-serverSock.listen(5)
+serverSock.listen()
 
 logger.info("서버 시작됨!")
 

@@ -23,10 +23,9 @@ speed = 1
 clientSock = socket(AF_INET, SOCK_STREAM)
 clientSock.connect(('127.0.0.1', 13659))
 
-nick = "newkini"
+nick = "newkini2"
 game = "testgame"
 clientSock.send(json.dumps([game, nick]).encode())
-
 # main loop
 while is_running:
     clock.tick(60)
