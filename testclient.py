@@ -1,13 +1,8 @@
 from socket import *
 import json
-
-clientSock = socket(AF_INET, SOCK_STREAM)
-clientSock.connect(('127.0.0.1', 13659))
-
-nick = "nekwini"
-
 import pygame
 import math
+
 pygame.init()
 
 # init
@@ -18,10 +13,19 @@ playerImg = pygame.image.load("./player.png")
 clock = pygame.time.Clock()
 is_running = True
 
-playerPos = [10,10]
+playerPos = [10, 10]
+dir = ""  # Initialize the 'dir' variable
 
 tilemap = [[0 for _ in range(0, 30)] for _ in range(0, 17)]
-speed = 2
+
+speed = 1
+
+clientSock = socket(AF_INET, SOCK_STREAM)
+clientSock.connect(('127.0.0.1', 13659))
+
+nick = "newkini"
+game = "testgame"
+clientSock.send(json.dumps([game, nick]).encode())
 # main loop
 while is_running:
     clock.tick(60)
@@ -54,19 +58,18 @@ while is_running:
                 dir = ""   
     # 플래이어
     # 움직이기
-    speed = 1
     if dir == "l":
         playerPos[0] -= speed
-        clientSock.send(json.dumps([nick, playerPos]).encode())
+        clientSock.send(json.dumps(playerPos).encode())
     elif dir == "r":
         playerPos[0] += speed
-        clientSock.send(json.dumps([nick, playerPos]).encode())
+        clientSock.send(json.dumps(playerPos).encode())
     elif dir == "u":
         playerPos[1] -= speed
-        clientSock.send(json.dumps([nick, playerPos]).encode())
+        clientSock.send(json.dumps(playerPos).encode())
     elif dir == "d":
         playerPos[1] += speed
-        clientSock.send(json.dumps([nick, playerPos]).encode())
+        clientSock.send(json.dumps(playerPos).encode())
 
     # draw
     screen.fill(pygame.Color(255,255,255))
